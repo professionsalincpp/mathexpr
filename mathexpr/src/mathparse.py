@@ -4,7 +4,7 @@ from typing import Dict
 from .parser.lexer import Lexer
 from .parser.parser import Parser, ParserError
 from .ast.node import Node, BinaryOpNode, UnaryOpNode, NumNode, VarNode
-from .ast.visitor import NodeVisitor
+from .ast.visitor import NodeVisitor, UndefinedIdentifierError
 
 
 class MathParse:
@@ -17,9 +17,15 @@ class MathParse:
         parser = Parser(lexer)
         ast = parser.parse()
         return ast
+    
+    @staticmethod
+    def evaluateast(ast: Node, variables: Dict[str, float] = {}) -> float:
+        """Evaluate an AST"""
+        return NodeVisitor(variables).visit(ast)
 
-    def evaluate(math_string: str, variables: Dict[str, float] = {}) -> float | Exception:
+    @staticmethod
+    def evaluate(math_string: str, variables: Dict[str, float] = {}) -> float:
         """Evaluate a mathematical string"""
-        ast = MathParse.parse(math_string)
-        result = NodeVisitor().visit(ast)
+        ast: Node = MathParse.parse(math_string)
+        result: float = MathParse.evaluateast(ast, variables)
         return result

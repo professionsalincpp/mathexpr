@@ -14,7 +14,7 @@ class Parser:
         self.current_token = self.lexer.get_next_token()
 
     def error(self, message="Invalid syntax"):
-        raise SyntaxError("Syntax error: " + message)
+        raise ParserError("Syntax error: " + message)
 
     def eat(self, token_type, error_msg: str = "Invalid syntax"):
         if self.current_token.type == token_type:
@@ -46,14 +46,14 @@ class Parser:
             self.error(f"Token type is '{token.type}'")
 
     def term(self):
-        node = self.factor()
+        node = self.power()
         while self.current_token is not None and self.current_token.type in (TokenType.MUL, TokenType.DIV):
             token = self.current_token
             if token.type == TokenType.MUL:
                 self.eat(TokenType.MUL)
             elif token.type == TokenType.DIV:
                 self.eat(TokenType.DIV)
-            factor = self.factor()
+            factor = self.power()
             if factor is None:
                 raise ParserError("Unexpected end of expression")
             node = BinaryOpNode(node, token, factor)
@@ -72,6 +72,18 @@ class Parser:
                 raise ParserError("Unexpected end of expression")
             node = BinaryOpNode(node, token, term)
         return node
+    
+    def power(self):
+        node = self.factor()
+        while self.current_token is not None and self.current_token.type in (TokenType.POW,):
+            token = self.current_token
+            self.eat(TokenType.POW)
+            factor = self.factor()
+            if factor is None:
+                raise ParserError("Unexpected end of expression")
+            node = BinaryOpNode(node, token, factor)
+        return node
+                
 
     def parse(self):
         node = self.expr()

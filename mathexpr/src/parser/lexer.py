@@ -2,6 +2,7 @@
 from enum import Enum
 from .tokens import *
 from ..utils.check import *
+from ..utils.errors import ParserError
 
 class Lexer:
     def __init__(self, text):
@@ -9,14 +10,12 @@ class Lexer:
         self.position = 0
         self.current_char = text[self.position]
         self.tokens = TokensSequence()
-        self.error = False
 
     def input(self, text):
         self.text = text
         self.position = 0
         self.current_char = self.text[self.position]
         self.tokens = TokensSequence()
-        self.error = False
 
     def advance(self) -> str:
         self.position += 1
@@ -73,10 +72,12 @@ class Lexer:
                 val = self.tokens.add(Token(TokenType.ASSIGN, self.current_char))
                 self.advance()
                 return val
+            if self.current_char == '^':
+                val = self.tokens.add(Token(TokenType.POW, self.current_char))
+                self.advance()
+                return val
             
-            print("[ERROR] '{}' at {}".format(self.current_char, self.position))
-            self.error = True
-            return None
+            raise ParserError(f"Unexpected character: {self.current_char}")
         
     def tokenize(self):
         while self.current_char is not None and not self.error:

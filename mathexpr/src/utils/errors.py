@@ -1,12 +1,13 @@
 # Errors 
 
-class ParserError(Exception):
-    """Raised when syntax error occurs"""
+class MathExprError(Exception):
+    """Raised when mathematical error occurs"""
     def __init__(self,message):
         """
-        Class for syntax error
+        Class for mathematical error
         """
         self.message = message
+        
         super().__init__(self.message)
 
     def __str__(self):
@@ -18,4 +19,18 @@ class ParserError(Exception):
     def __unicode__(self):
         return self.message
 
+class ParserError(MathExprError):
+    """Raised when syntax error occurs"""
     
+class UndefinedIdentifierError(Exception):
+    """Raised when undefined identifier is encountered"""
+
+class UnknownBinaryOperatorError(Exception):
+    """Raised when unknown binary operator is encountered"""
+
+class UnknownUnaryOperatorError(Exception):
+    """Raised when unknown unary operator is encountered"""
+
+
+    
+
