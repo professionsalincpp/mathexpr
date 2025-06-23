@@ -1,7 +1,7 @@
 # test_parser.py
 
 import unittest
-from mathparse import MathParse, ParserError
+from mathexpr import MathParse, ParserError
 
 class TestParser(unittest.TestCase):
     def test_simple_expression(self):

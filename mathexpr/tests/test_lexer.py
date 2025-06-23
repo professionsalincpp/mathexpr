@@ -1,8 +1,8 @@
 # test_lexer.py
 
 import unittest
-from mathparse.src.parser.lexer import Lexer
-from mathparse.src.parser.tokens import TokenType 
+from mathexpr.src.parser.lexer import Lexer
+from mathexpr.src.parser.tokens import TokenType 
 
 class TestLexer(unittest.TestCase):
     def test_number_token(self):

@@ -1,6 +1,6 @@
-# MathParse
+# MathExpr
 
-MathParse is a Python library for parsing and evaluating mathematical expressions.
+MathExpr is a Python library for parsing and evaluating mathematical expressions.
 
 ## Table of Contents
 
@@ -29,16 +29,16 @@ pip install mathparse
 
 ## Features
 
-MathParse provides the following features:
+MathExpr provides the following features:
 
 * Parsing mathematical expressions
 * Evaluating mathematical expressions
 
 ## Usage
 
-To use MathParse, import the `MathParse` class and use the `parse` and `evaluate` methods:
+To use MathExpr, import the `MathParse` class and use the `parse` and `evaluate` methods:
 ```python
-from mathparse import MathParse
+from mathexpr import MathParse
 
 math_string = "(2 + 3) * 4^3"
 result = MathParse.evaluate(math_string)
@@ -50,5 +50,5 @@ If you would like to contribute to this project, please fork the repository and 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/professionsalincpp/mathparse/blob/main/mathparse/LICENSE) file for details.
 

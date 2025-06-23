@@ -1,6 +1,6 @@
 # parser.py
 
-from mathparse.src.utils.errors import ParserError
+from mathexpr.src.utils.errors import ParserError
 from .lexer import Lexer
 from .tokens import TokenType
 from ..ast.node import Node, BinaryOpNode, UnaryOpNode, NumNode, VarNode
