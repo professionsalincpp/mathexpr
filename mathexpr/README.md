@@ -33,15 +33,24 @@ MathExpr provides the following features:
 
 * Parsing mathematical expressions
 * Evaluating mathematical expressions
+* Evaluating mathematical expressions with variables
 
 ## Usage
 
-To use MathExpr, import the `MathParse` class and use the `parse` and `evaluate` methods:
+To use MathExpr, import the `MathParse` class and use the `parse` and `evaluate` methods.
+Simple usage example:
 ```python
 from mathexpr import MathParse
 
 math_string = "(2 + 3) * 4^3"
 result = MathParse.evaluate(math_string)
+```
+Usage with variables:
+```python
+from mathexpr import MathParse
+
+math_string = "x + y"
+result = MathParse.evaluate(math_string, {"x": 2, "y": 3})
 ```
 
 ## Contributing
