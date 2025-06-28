@@ -21,6 +21,9 @@ class MathExprError(Exception):
 
 class ParserError(MathExprError):
     """Raised when syntax error occurs"""
+
+class LexerError(MathExprError):
+    """Raised when lexer error occurs"""
     
 class UndefinedIdentifierError(Exception):
     """Raised when undefined identifier is encountered"""
@@ -31,6 +34,6 @@ class UnknownBinaryOperatorError(Exception):
 class UnknownUnaryOperatorError(Exception):
     """Raised when unknown unary operator is encountered"""
 
-
-    
+class UnsupportedError(Exception):
+    """Raised when unsupported operation is encountered"""
 

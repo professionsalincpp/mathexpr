@@ -1,17 +1,20 @@
 # mathparse.py
 
-from typing import Dict
+import mathexpr
+from typing import List, Dict
+from .utils.debug import print_ast
 from .parser.lexer import Lexer
 from .parser.parser import Parser, ParserError
 from .ast.node import Node, BinaryOpNode, UnaryOpNode, NumNode, VarNode
 from .ast.visitor import NodeVisitor, UndefinedIdentifierError
+from .utils.debug import * 
 
 
-class MathParse:
+class MathExpr:
     """Math parsing class"""
 
     @staticmethod
-    def parse( math_string: str) -> Node:
+    def parse(math_string: str) -> Node:
         """Parse a mathematical string into an AST"""
         lexer = Lexer(math_string)
         parser = Parser(lexer)
@@ -23,9 +26,9 @@ class MathParse:
         """Evaluate an AST"""
         return NodeVisitor(variables).visit(ast)
 
-    @staticmethod
-    def evaluate(math_string: str, variables: Dict[str, float] = {}) -> float:
+    @classmethod
+    def evaluate(cls, math_string: str, variables: Dict[str, float] = {}) -> float:
         """Evaluate a mathematical string"""
-        ast: Node = MathParse.parse(math_string)
-        result: float = MathParse.evaluateast(ast, variables)
+        ast: Node = cls.parse(math_string)
+        result: float = cls.evaluateast(ast, variables)
         return result

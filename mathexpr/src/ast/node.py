@@ -1,5 +1,6 @@
 # Node implementation for AST 
 
+
 class Node:
     """Abstract base class for AST nodes"""
 

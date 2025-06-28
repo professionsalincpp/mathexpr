@@ -14,7 +14,14 @@ class OperationType(Enum):
     EXP = "EXP"
     MOD = "MOD"
     POW = "POW"
-    EQ = "EQ"
+    ASSIGN = "ASSIGN"
+    EQ = "EQU",
+    NEQ = "NEQ",
+    GT = "GT",
+    LT = "LT",
+    GTE = "GTE",
+    LTE = "LTE"
+
 
 class SyntaxType(Enum):
     """
@@ -22,9 +29,14 @@ class SyntaxType(Enum):
     """
     LPAR = "LPAR"
     RPAR = "RPAR"
+    LBRACE = "LBRACE"
+    RBRACE = "RBRACE"
     DOT = "DOT"
     COMMA = "COMMA"
 
+class Keywords(Enum):
+    IF = "IF",
+    ELSE = "ELSE"
 
 class TokenType(Enum):
     """
@@ -38,10 +50,18 @@ class TokenType(Enum):
     EXP = OperationType.EXP
     MOD = OperationType.MOD
     POW = OperationType.POW
+    ASSIGN = OperationType.ASSIGN
     EQ = OperationType.EQ
+    NEQ = OperationType.NEQ
+    GT = OperationType.GT
+    LT = OperationType.LT
+    GTE = OperationType.GTE
+    LTE = OperationType.LTE
     # Syntax
     LPAR = SyntaxType.LPAR
     RPAR = SyntaxType.RPAR
+    LBRACE = SyntaxType.LBRACE
+    RBRACE = SyntaxType.RBRACE 
     DOT = SyntaxType.DOT
     COMMA = SyntaxType.COMMA
     # Identifiers
@@ -49,11 +69,16 @@ class TokenType(Enum):
     IDENTIFIER = 'IDENTIFIER'
     # Keywords
     EOF = 'EOF'
+    IF = Keywords.IF,
+    ELSE = Keywords.ELSE
 
 class Token:
     def __init__(self, type, value=None):
         self.type = type
         self.value = value
+    
+    def __repr__(self):
+        return f"Token: {self.type} {self.value}\n"
     
 
 class TokensSequence:

@@ -24,7 +24,7 @@ To get started with this project, please follow these steps:
 
 To install the library, run the following command:
 ```bash
-pip install mathparse
+pip install mathexpr
 ```
 
 ## Features
@@ -40,24 +40,45 @@ MathExpr provides the following features:
 To use MathExpr, import the `MathParse` class and use the `parse` and `evaluate` methods.
 Simple usage example:
 ```python
-from mathexpr import MathParse
+from mathexpr import MathExpr
 
 math_string = "(2 + 3) * 4^3"
-result = MathParse.evaluate(math_string)
+result = MathExpr.evaluate(math_string)
+print(result)
+
+>>> 320.0
 ```
 Usage with variables:
 ```python
-from mathexpr import MathParse
-
+from mathexpr import MathExpr
 math_string = "x + y"
-result = MathParse.evaluate(math_string, {"x": 2, "y": 3})
+result = MathExpr.evaluate(math_string, {"x": 2, "y": 3})
+print(result)
+
+>>> 5
+```
+Debug the AST:
+```python
+from mathexpr import MathExpr, print_ast
+
+math_string = "(2 + 3) * 4^3"
+ast = MathExpr.parse(math_string)
+print_ast(ast)
+
+>>> TokenType.MUL
+>>> ├──TokenType.ADD
+>>> │  ├──NumNode(value=2.0)
+>>> │  ╰──NumNode(value=3.0)
+>>> ╰──TokenType.POW
+>>> │  ├──NumNode(value=4.0)
+>>> │  ╰──NumNode(value=3.0)
 ```
 
 ## Contributing
 
-If you would like to contribute to this project, please fork the repository and create a pull request.
+If you would like to contribute to this project, please fork the [repository](https://github.com/professionsalincpp/mathparse) and create a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/professionsalincpp/mathparse/blob/main/mathparse/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/professionsalincpp/mathparse/blob/main/mathexpr/LICENSE) file for details.
 

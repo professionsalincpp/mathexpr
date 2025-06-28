@@ -1,17 +1,17 @@
 # parser.py
-
-from mathexpr.src.utils.errors import ParserError
-from .lexer import Lexer
 from .tokens import TokenType
-from ..ast.node import Node, BinaryOpNode, UnaryOpNode, NumNode, VarNode
+from .lexer import Lexer
+from ..ast.node import *
 from ..utils.errors import ParserError
 
 class Parser:
     """Parser for mathematical expressions"""
 
-    def __init__(self, lexer):
+    def __init__(self, lexer: Lexer):
         self.lexer = lexer
         self.current_token = self.lexer.get_next_token()
+        self._line = 0
+
 
     def error(self, message="Invalid syntax"):
         raise ParserError("Syntax error: " + message)
@@ -73,8 +73,52 @@ class Parser:
             node = BinaryOpNode(node, token, term)
         return node
     
-    def power(self):
+    def condition(self):
         node = self.factor()
+        while self.current_token is not None and self.current_token.type in (TokenType.EQ, TokenType.NEQ, TokenType.LT, TokenType.LTE, TokenType.GT, TokenType.GTE):
+            token = self.current_token
+            if self.current_token.type == TokenType.EQ:
+                self.eat(TokenType.EQ)
+                right = self.expr()
+                if right is None:
+                    raise ParserError("Unexpected end of expression")
+                node = BinaryOpNode(node, token, right)
+            elif self.current_token.type == TokenType.NEQ:
+                self.eat(TokenType.NEQ)
+                right = self.expr()
+                if right is None:
+                    raise ParserError("Unexpected end of expression")
+                node = BinaryOpNode(node, token, right)
+            elif self.current_token.type == TokenType.LT:
+                self.eat(TokenType.LT)
+                right = self.expr()
+                if right is None:
+                    if right is None:
+                        raise ParserError("Unexpected end of expression")
+                node = BinaryOpNode(node, token, right)
+            elif self.current_token.type == TokenType.LTE:
+                self.eat(TokenType.LTE)
+                right = self.expr()
+                if right is None:
+                    raise ParserError("Unexpected end of expression")
+                node = BinaryOpNode(node, token, right)
+            elif self.current_token.type == TokenType.GT:
+                self.eat(TokenType.GT)
+                right = self.expr()
+                if right is None:
+                    raise ParserError("Unexpected end of expression")
+                node = BinaryOpNode(node, token, right)
+            elif self.current_token.type == TokenType.GTE:
+                self.eat(TokenType.GTE)
+                right = self.expr()
+                if right is None:
+                    raise ParserError("Unexpected end of expression")
+                node = BinaryOpNode(node, token, right)
+        return node
+    
+    
+    def power(self):
+        node = self.condition()
         while self.current_token is not None and self.current_token.type in (TokenType.POW,):
             token = self.current_token
             self.eat(TokenType.POW)
@@ -83,8 +127,9 @@ class Parser:
                 raise ParserError("Unexpected end of expression")
             node = BinaryOpNode(node, token, factor)
         return node
-                
 
     def parse(self):
         node = self.expr()
+        if self.current_token is not None:
+            self.error("Unexpected token")
         return node
