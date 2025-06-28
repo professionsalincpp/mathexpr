@@ -76,9 +76,9 @@ print_ast(ast)
 
 ## Contributing
 
-If you would like to contribute to this project, please fork the [repository](https://github.com/professionsalincpp/mathparse) and create a pull request.
+If you would like to contribute to this project, please fork the [repository](https://github.com/professionsalincpp/mathexpr) and create a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/professionsalincpp/mathparse/blob/main/mathexpr/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/professionsalincpp/mathexpr/blob/main/LICENSE) file for details.
 
